@@ -10,7 +10,12 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import kotlinx.android.synthetic.main.activity_main.*
+import com.tecc0.kotlintest.api.RetrofitManager
+import com.tecc0.kotlintest.api.SchemaApi
+import com.tecc0.kotlintest.model.SchemaResponse
+import rx.Subscriber
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 
 class SecondActivity : AppCompatActivity() {
@@ -30,7 +35,7 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
         ButterKnife.bind(this)
-        
+
         textView.setText("fuga")
     }
 
@@ -38,5 +43,23 @@ class SecondActivity : AppCompatActivity() {
     fun buttonClicked() {
         Snackbar.make(container, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+
+        RetrofitManager().getRetrofit().create(SchemaApi::class.java).index().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(object : Subscriber<SchemaResponse>(){
+                    override fun onCompleted() {
+
+                    }
+
+                    override fun onNext(t: SchemaResponse?) {
+                        textView.setText(t?.description)
+                    }
+
+                    override fun onError(e: Throwable?) {
+
+                    }
+
+                })
     }
 }
