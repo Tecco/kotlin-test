@@ -15,6 +15,7 @@ import butterknife.Unbinder
 import com.tecc0.kotlintest.R
 import com.tecc0.kotlintest.api.RetrofitManager
 import com.tecc0.kotlintest.api.SchemaApi
+import com.tecc0.kotlintest.model.Api
 import com.tecc0.kotlintest.model.SchemaResponse
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
@@ -30,6 +31,8 @@ class QiitaFragment : Fragment() {
 
     private lateinit var unbinder: Unbinder
 
+    private lateinit var listener: Listener
+
     companion object {
         fun newInstance(): QiitaFragment {
             return QiitaFragment()
@@ -40,6 +43,7 @@ class QiitaFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_qiita, container, false)
         unbinder = ButterKnife.bind(this, view)
 
+        listener = activity as Listener
         initView()
         return view
     }
@@ -54,7 +58,7 @@ class QiitaFragment : Fragment() {
         Snackbar.make(container, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
 
-        RetrofitManager().getRetrofit().create(SchemaApi::class.java).index().subscribeOn(Schedulers.newThread())
+        RetrofitManager().getRetrofit(Api.QIITA).create(SchemaApi::class.java).index().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(object : Subscriber<SchemaResponse>() {
@@ -73,7 +77,16 @@ class QiitaFragment : Fragment() {
                 })
     }
 
+    @OnClick(R.id.fragment_qiita_next_button)
+    fun nextButtonClicked() {
+        listener.onNext()
+    }
+
     private fun initView() {
         textView.setText("fuga")
+    }
+
+    interface Listener {
+        fun onNext()
     }
 }

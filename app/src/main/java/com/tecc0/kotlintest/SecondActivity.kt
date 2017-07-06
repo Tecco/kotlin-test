@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import com.tecc0.kotlintest.fragment.FlickrFragment
 import com.tecc0.kotlintest.fragment.QiitaFragment
 
 
-class SecondActivity : AppCompatActivity() {
+class SecondActivity : AppCompatActivity(), QiitaFragment.Listener {
 
     companion object {
         fun createIntent(context: Context): Intent =
@@ -33,5 +34,9 @@ class SecondActivity : AppCompatActivity() {
         ft.replace(R.id.activity_second_container, fragment, fragment::class.java.getSimpleName());
         ft.addToBackStack(null);
         ft.commit();
+    }
+
+    override fun onNext() {
+        replaceFragment(FlickrFragment.newInstance())
     }
 }
