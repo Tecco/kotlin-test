@@ -44,7 +44,7 @@ class QiitaFragment : Fragment() {
         unbinder = ButterKnife.bind(this, view)
 
         listener = activity as Listener
-        initView()
+
         return view
     }
 
@@ -80,10 +80,6 @@ class QiitaFragment : Fragment() {
     @OnClick(R.id.fragment_qiita_next_button)
     fun nextButtonClicked() {
         listener.onNext()
-    }
-
-    private fun initView() {
-        textView.setText("fuga")
     }
 
     interface Listener {

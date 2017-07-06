@@ -24,8 +24,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
-
-        textView.setText("hoge")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
