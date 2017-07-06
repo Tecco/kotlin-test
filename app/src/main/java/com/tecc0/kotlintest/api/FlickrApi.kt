@@ -9,11 +9,11 @@ interface FlickrApi {
 
     @GET("/services/rest/")
     fun index(@Query("api_key") apiKey: String,
-                  @Query("method") method: String,
-                  @Query("tags") tags: String,
-                  @Query("tag_mode") tagMode: String,
-                  @Query("format") format: String,
-                  @Query("nojsoncallback") num: Int,
-                  @Query("per_page") perPage: Int,
-                  @Query("page") page: Int): Observable<Flickr>
+              @Query("method") method: String,
+              @Query("tags") tags: String,
+              @Query("tag_mode") tagMode: String,
+              @Query("format") format: String,
+              @Query("nojsoncallback") num: Int,
+              @Query("per_page") perPage: Int,
+              @Query("page") page: Int): Observable<Flickr>
 }

@@ -9,5 +9,4 @@ interface SchemaApi {
 
     @GET("/api/v2/schema")
     fun index(): Observable<SchemaResponse>
-
 }

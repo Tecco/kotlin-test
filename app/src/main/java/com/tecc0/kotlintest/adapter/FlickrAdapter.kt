@@ -10,9 +10,9 @@ import com.tecc0.kotlintest.viewmodel.Gallery
 
 class FlickrAdapter(context: Context, galleries: List<Gallery>) : RecyclerView.Adapter<FlickrViewHolder>() {
 
-    lateinit var context: Context
+    private var context: Context
 
-    lateinit var galleries: List<Gallery>
+    private var galleries: List<Gallery>
 
     init {
         this.context = context

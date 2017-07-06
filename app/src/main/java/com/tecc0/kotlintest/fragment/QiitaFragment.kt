@@ -63,15 +63,15 @@ class QiitaFragment : Fragment() {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(object : Subscriber<SchemaResponse>() {
                     override fun onCompleted() {
-
+                        // No Action
                     }
 
-                    override fun onNext(t: SchemaResponse?) {
-                        textView.setText(t?.description)
+                    override fun onNext(schema: SchemaResponse?) {
+                        textView.setText(schema?.description)
                     }
 
                     override fun onError(e: Throwable?) {
-
+                        // No Action
                     }
 
                 })

@@ -7,5 +7,4 @@ class Photos {
     var total: String = ""
 
     lateinit var photo: List<Photo>
-
 }

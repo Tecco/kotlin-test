@@ -30,6 +30,8 @@ class FlickrFragment : Fragment() {
     private lateinit var unbinder: Unbinder
 
     companion object {
+        val PHOTO_URL_FORMAT = "http://c2.staticflickr.com/%s/%s/%s_%s.jpg"
+
         fun newInstance(): FlickrFragment {
             return FlickrFragment()
         }
@@ -63,26 +65,26 @@ class FlickrFragment : Fragment() {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(object : Subscriber<Flickr>() {
                     override fun onCompleted() {
-
+                        // No Action
                     }
 
                     override fun onNext(flickr: Flickr?) {
-                        val photos = flickr?.photos?.photo?: run {
+                        val photos = flickr?.photos?.photo ?: run {
                             return
                         }
 
                         var galleries: ArrayList<Gallery> = ArrayList()
                         // TODO: コレクション操作でやりたいけどまだわからん
                         for ((num, p) in photos.withIndex()) {
-                            galleries.add(Gallery(num, p.title, String.format("http://c2.staticflickr.com/%s/%s/%s_%s.jpg", p.farm, p.server, p.id, p.secret, p.owner), p.owner))
+                            val url = String.format(PHOTO_URL_FORMAT, p.farm, p.server, p.id, p.secret, p.owner)
+                            galleries.add(Gallery(num, p.title, url, p.owner))
                         }
 
-                        val adapter = FlickrAdapter(context, galleries)
-                        recyclerView.setAdapter(adapter)
+                        recyclerView.setAdapter(FlickrAdapter(context, galleries))
                     }
 
                     override fun onError(e: Throwable?) {
-
+                        // No Action
                     }
 
                 })

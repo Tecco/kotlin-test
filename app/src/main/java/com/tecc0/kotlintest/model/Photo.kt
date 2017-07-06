@@ -8,5 +8,4 @@ class Photo {
     var farm: String = ""
     var server: String = ""
     var secret: String = ""
-
 }

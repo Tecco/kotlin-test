@@ -23,16 +23,16 @@ class SecondActivity : AppCompatActivity(), QiitaFragment.Listener {
     }
 
     fun initFragment() {
-        val ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.activity_second_container, QiitaFragment.newInstance(), QiitaFragment.newInstance()::class.java.getSimpleName());
-        ft.commit();
+        val ft = getSupportFragmentManager().beginTransaction()
+        ft.replace(R.id.activity_second_container, QiitaFragment.newInstance(), QiitaFragment.newInstance()::class.java.getSimpleName())
+        ft.commit()
     }
 
     fun replaceFragment(fragment: Fragment) {
-        val ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.activity_second_container, fragment, fragment::class.java.getSimpleName());
-        ft.addToBackStack(null);
-        ft.commit();
+        val ft = getSupportFragmentManager().beginTransaction()
+        ft.replace(R.id.activity_second_container, fragment, fragment::class.java.getSimpleName())
+        ft.addToBackStack(null)
+        ft.commit()
     }
 
     override fun onNext() {
