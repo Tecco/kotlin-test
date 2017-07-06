@@ -67,9 +67,13 @@ class FlickrFragment : Fragment() {
                     }
 
                     override fun onNext(flickr: Flickr?) {
+                        val photos = flickr?.photos?.photo?: run {
+                            return
+                        }
+
                         var galleries: ArrayList<Gallery> = ArrayList()
-                        // TODO: !!使いたくないけどとりま && コレクション操作でやりたいけどまだわからん
-                        for ((num, p) in flickr?.photos?.photo!!.withIndex()) {
+                        // TODO: コレクション操作でやりたいけどまだわからん
+                        for ((num, p) in photos.withIndex()) {
                             galleries.add(Gallery(num, p.title, String.format("http://c2.staticflickr.com/%s/%s/%s_%s.jpg", p.farm, p.server, p.id, p.secret, p.owner), p.owner))
                         }
 

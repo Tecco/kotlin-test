@@ -23,7 +23,7 @@ class FlickrViewHolder(context: Context, itemView: View?) : RecyclerView.ViewHol
 
     init {
         this.context = context
-        // TODO: !!
+        // TODO: わかんないな !! 消せるかなこれ
         ButterKnife.bind(this, itemView!!)
     }
 
