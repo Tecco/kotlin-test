@@ -69,7 +69,6 @@ class FlickrFragment : Fragment() {
                     }
 
                     recyclerView.setAdapter(FlickrAdapter(context, galleries))
-
                 }, { e: Throwable? ->
                     e?.printStackTrace()
                 })

@@ -1,11 +1,10 @@
 package com.tecc0.kotlintest.model
 
-class Photo {
-
-    lateinit var id: String
-    lateinit var owner: String
-    lateinit var title: String
-    lateinit var farm: String
-    lateinit var server: String
-    lateinit var secret: String
-}
+class Photo(
+        val id: String,
+        val owner: String,
+        val title: String,
+        val farm: String,
+        val server: String,
+        val secret: String
+)
