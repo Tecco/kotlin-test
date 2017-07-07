@@ -20,7 +20,7 @@ class FlickrViewHolder(private val context: Context, itemView: View?) : Recycler
     lateinit var photoImageView: ImageView
 
     init {
-        itemView?.let { ButterKnife.bind(this, itemView) }
+        itemView?.let { ButterKnife.bind(this, it) }
     }
 
     fun bind(galleries: List<Gallery>, position: Int) {
