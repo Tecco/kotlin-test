@@ -8,16 +8,7 @@ import com.tecc0.kotlintest.R
 import com.tecc0.kotlintest.viewholder.FlickrViewHolder
 import com.tecc0.kotlintest.viewmodel.Gallery
 
-class FlickrAdapter(context: Context, galleries: List<Gallery>) : RecyclerView.Adapter<FlickrViewHolder>() {
-
-    private var context: Context
-
-    private var galleries: List<Gallery>
-
-    init {
-        this.context = context
-        this.galleries = galleries
-    }
+class FlickrAdapter(private val context: Context, private val galleries: List<Gallery>) : RecyclerView.Adapter<FlickrViewHolder>() {
 
     override fun getItemCount(): Int {
         return galleries.size

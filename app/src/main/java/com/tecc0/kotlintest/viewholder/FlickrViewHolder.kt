@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 import com.tecc0.kotlintest.R
 import com.tecc0.kotlintest.viewmodel.Gallery
 
-class FlickrViewHolder(context: Context, itemView: View?) : RecyclerView.ViewHolder(itemView) {
+class FlickrViewHolder(private val context: Context, itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
     @BindView(R.id.item_list_flickr_textview)
     lateinit var nameTextView: TextView
@@ -19,12 +19,8 @@ class FlickrViewHolder(context: Context, itemView: View?) : RecyclerView.ViewHol
     @BindView(R.id.item_list_flickr_imageview)
     lateinit var photoImageView: ImageView
 
-    var context: Context
-
     init {
-        this.context = context
-        // TODO: わかんないな !! 消せるかなこれ
-        ButterKnife.bind(this, itemView!!)
+        itemView?.let { ButterKnife.bind(this, itemView) }
     }
 
     fun bind(galleries: List<Gallery>, position: Int) {

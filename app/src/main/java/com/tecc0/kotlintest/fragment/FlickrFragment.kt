@@ -73,11 +73,8 @@ class FlickrFragment : Fragment() {
                             return
                         }
 
-                        var galleries: ArrayList<Gallery> = ArrayList()
-                        // TODO: コレクション操作でやりたいけどまだわからん
-                        for ((num, p) in photos.withIndex()) {
-                            val url = String.format(PHOTO_URL_FORMAT, p.farm, p.server, p.id, p.secret, p.owner)
-                            galleries.add(Gallery(num, p.title, url, p.owner))
+                        val galleries = photos.mapIndexed { num, p ->
+                            Gallery(num, p.title, String.format(PHOTO_URL_FORMAT, p.farm, p.server, p.id, p.secret, p.owner), p.owner)
                         }
 
                         recyclerView.setAdapter(FlickrAdapter(context, galleries))
