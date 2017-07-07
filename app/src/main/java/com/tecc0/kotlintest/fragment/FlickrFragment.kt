@@ -15,9 +15,7 @@ import com.tecc0.kotlintest.adapter.FlickrAdapter
 import com.tecc0.kotlintest.api.FlickrApi
 import com.tecc0.kotlintest.api.RetrofitManager
 import com.tecc0.kotlintest.model.Api
-import com.tecc0.kotlintest.model.Flickr
 import com.tecc0.kotlintest.viewmodel.Gallery
-import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
@@ -63,27 +61,17 @@ class FlickrFragment : Fragment() {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
-                .subscribe(object : Subscriber<Flickr>() {
-                    override fun onCompleted() {
-                        // No Action
+                .subscribe({ flickr ->
+                    val photos = flickr?.photos?.photo ?: return@subscribe
+
+                    val galleries = photos.mapIndexed { num, p ->
+                        Gallery(num, p.title, String.format(PHOTO_URL_FORMAT, p.farm, p.server, p.id, p.secret, p.owner), p.owner)
                     }
 
-                    override fun onNext(flickr: Flickr?) {
-                        val photos = flickr?.photos?.photo ?: run {
-                            return
-                        }
+                    recyclerView.setAdapter(FlickrAdapter(context, galleries))
 
-                        val galleries = photos.mapIndexed { num, p ->
-                            Gallery(num, p.title, String.format(PHOTO_URL_FORMAT, p.farm, p.server, p.id, p.secret, p.owner), p.owner)
-                        }
-
-                        recyclerView.setAdapter(FlickrAdapter(context, galleries))
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        // No Action
-                    }
-
+                }, { e: Throwable? ->
+                    e?.printStackTrace()
                 })
     }
 }

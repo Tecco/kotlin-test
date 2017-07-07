@@ -16,8 +16,6 @@ import com.tecc0.kotlintest.R
 import com.tecc0.kotlintest.api.RetrofitManager
 import com.tecc0.kotlintest.api.SchemaApi
 import com.tecc0.kotlintest.model.Api
-import com.tecc0.kotlintest.model.SchemaResponse
-import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
@@ -58,22 +56,15 @@ class QiitaFragment : Fragment() {
         Snackbar.make(container, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
 
-        RetrofitManager().getRetrofit(Api.QIITA).create(SchemaApi::class.java).index().subscribeOn(Schedulers.newThread())
+        RetrofitManager().getRetrofit(Api.QIITA).create(SchemaApi::class.java)
+                .index()
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
-                .subscribe(object : Subscriber<SchemaResponse>() {
-                    override fun onCompleted() {
-                        // No Action
-                    }
-
-                    override fun onNext(schema: SchemaResponse?) {
-                        textView.setText(schema?.description)
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        // No Action
-                    }
-
+                .subscribe({ schema ->
+                    textView.setText(schema?.description)
+                }, { e: Throwable? ->
+                    e?.printStackTrace()
                 })
     }
 
